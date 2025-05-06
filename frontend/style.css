@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.table {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+/* Add styles for sortable table headers */
+th.sortable {
+    cursor: pointer;
+    position: relative;
+}
+
+th.sortable::after {
+    content: '\25B4'; /* Up arrow */
+    position: absolute;
+    right: 8px;
+    opacity: 0.5;
+    transform: rotate(180deg); /* Default to descending */
+}
+
+th.sortable.sort-asc::after {
+    content: '\25B4'; /* Up arrow */
+    transform: rotate(0deg); /* Ascending */
+}
+
+th.sortable.sort-desc::after {
+    content: '\25BE'; /* Down arrow */
+    transform: rotate(0deg); /* Descending */
+}
+
+.table td, .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.btn {
+    margin: 0 5px;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form .form-label {
+    font-weight: bold;
+}
+
+form .btn {
+    margin-top: 10px;
+}
