@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/DocsManager
+/bin/Debug
+/DocsManager.Core/bin/Debug/net8.0
+/DocsManager.Core/obj/Debug/net8.0
+/DocsManager.Core/obj
+/DocsManager.Infrastructure
+/DocsManager.Tests
+/DocsManager.WebAPI/bin/Debug/net8.0
+/DocsManager.WebAPI/obj
+/obj

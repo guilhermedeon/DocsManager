@@ -1,12 +1,13 @@
-using DocsManager.Core;
+﻿using DocsManager.Core;
 using DocsManager.Infrastructure;
 using DocsManager.Infrastructure.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
 using System.Text;
 
 await Task.Delay(TimeSpan.FromSeconds(10));
@@ -110,6 +111,36 @@ static void AddServices(WebApplicationBuilder builder)
     SetupSwagger(builder);
 
     SetupAuthentication(builder);
+
+    SetupTelemetry(builder);
+}
+
+static void SetupTelemetry(WebApplicationBuilder builder)
+{
+    builder.Logging.AddOpenTelemetry(options =>
+    {
+        options.IncludeFormattedMessage = true;
+        options.IncludeScopes = true;
+    });
+
+    builder.Services.AddOpenTelemetry()
+        .WithTracing(tracer =>
+        {
+            tracer
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddSource("DocsManager")
+                .AddOtlpExporter(o => o.Endpoint = new Uri(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]!));
+        })
+        .WithMetrics(metrics =>
+        {
+            metrics
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddOtlpExporter(o => o.Endpoint = new Uri(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]!));
+        }).
+        WithLogging(logging => logging.AddOtlpExporter(o => o.Endpoint = new Uri(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]!)));
 }
 
 static async Task ConfigureServices(WebApplication app)

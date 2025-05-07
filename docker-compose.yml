@@ -13,6 +13,8 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=documents_db;Username=postgres;Password=yourpassword
             - ASPNETCORE_URLS=http://0.0.0.0:5000
+            - OTEL_EXPORTER_OTLP_ENDPOINT=http://aspire:18889
+            - OTEL_RESOURCE_ATTRIBUTES=service.name=DocsManager
 
     postgres:
         image: postgres:latest
@@ -36,3 +38,11 @@ services:
             - docsmanager.webapi
         environment:
             - BACKEND_URL=http://docsmanager_webapi:5000
+
+    aspire:
+        image: mcr.microsoft.com/dotnet/aspire-dashboard:9.1
+        container_name: aspire
+        ports:
+            - "18888:18888"
+            - "18889:18889"
+            - "4317:4317"
