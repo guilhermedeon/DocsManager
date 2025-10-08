@@ -1,9 +1,4 @@
 ﻿using DocsManager.Core.Domain.Documents.Revisions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocsManager.Core.Domain.Documents
 {

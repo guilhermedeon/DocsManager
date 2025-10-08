@@ -1,11 +1,6 @@
 ﻿using DocsManager.Core.Abstractions;
 using DocsManager.Core.Domain.Documents;
 using DocsManager.Core.Domain.Documents.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DocsManager.Core.Application
 {
@@ -44,7 +39,7 @@ namespace DocsManager.Core.Application
 
         public (IEnumerable<Document> Documents, int TotalCount) GetDocuments(DocumentListFilterDTO filter)
         {
-             var query = documentRepository.Query();
+            var query = documentRepository.Query();
 
             if (!string.IsNullOrWhiteSpace(filter.SearchText))
             {
