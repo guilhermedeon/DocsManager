@@ -1,4 +1,6 @@
+import { DocumentEntry } from "./document";
+
 export interface DocumentsResponse {
-  documents : Document[];
+  documents : DocumentEntry[];
   totalCount: number;
 }

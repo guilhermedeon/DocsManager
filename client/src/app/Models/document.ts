@@ -1,4 +1,4 @@
-export interface Document {
+export interface DocumentEntry {
   guid: string;
   code: string;
   title: string;

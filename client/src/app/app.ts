@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, output, OutputEmitterRef, Signal, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonDemo } from './buttondemo/buttondemo';
 import { Title } from '@angular/platform-browser';
 import { ApiBaseUrl } from './app.config';
+import { Simplegrid } from "./simplegrid/simplegrid";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ButtonDemo],
+  imports: [RouterOutlet, Simplegrid],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -25,7 +25,7 @@ export class App {
   }
 
   getData() {
-    this.httpClient.get(`${ApiBaseUrl}/Documents/c918a962-b7ea-4d86-8873-88bcb7ad66b5`).subscribe(response => {
+    this.httpClient.get(`${ApiBaseUrl}/Documents`).subscribe(response => {
       console.log(response);
     });
   }

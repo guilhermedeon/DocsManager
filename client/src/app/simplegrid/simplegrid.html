@@ -1,0 +1,21 @@
+<thead>
+  <tr>
+    <th>Code</th>
+    <th>Title</th>
+    <th>Revision</th>
+    <th>Planned Date</th>
+    <th>Value</th>
+  </tr>
+</thead>
+<tbody>
+  @for (doc of documentsResponse?.documents; track doc.guid) {
+  <tr>
+    <td>{{ doc.guid }}</td>
+    <td>{{ doc.code }}</td>
+    <td>{{ doc.title }}</td>
+    <td>{{ doc.revision }}</td>
+    <td>{{ doc.plannedDate }}</td>
+    <td>{{ doc.value }}</td>
+  </tr>
+}
+</tbody>
