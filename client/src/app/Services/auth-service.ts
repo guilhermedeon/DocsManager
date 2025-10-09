@@ -3,28 +3,37 @@ import { Injectable } from '@angular/core';
 import { take } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  constructor( private http: HttpClient ) { }
+  constructor(private http: HttpClient) {}
 
-  fetchToken(){
-    this.http.get<{ token: string }>('http://localhost:5000/token')
-    .pipe(take(1))
-    .subscribe(response => {
-      this.setToken(response.token);
+  fetchToken(): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get<{ token: string }>('http://localhost:5000/api/Auth/token')
+        .pipe(take(1))
+        .subscribe(
+          (response) => {
+            this.setToken(response.token);
+            resolve(response.token);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
     });
   }
 
-  getToken(){
+  getToken() {
     return localStorage.getItem('token');
   }
 
-  setToken(token: string){
+  setToken(token: string) {
     localStorage.setItem('token', token);
   }
 
-  clearToken(){
+  clearToken() {
     localStorage.removeItem('token');
   }
 
@@ -32,5 +41,13 @@ export class AuthService {
     const token = this.getToken();
     // Simple check for token existence; in a real app, you'd verify token validity
     return !!token;
+  }
+
+  async getOrFetchToken(): Promise<string | null> {
+    let token = this.getToken();
+    if (!token) {
+      token = await this.fetchToken();
+    }
+    return token;
   }
 }
