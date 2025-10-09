@@ -15,6 +15,8 @@ export class TokenInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
+    this.authService.clearToken(); // Clear existing token to force fetch
+
     return from(this.authService.getOrFetchToken()).pipe(
       switchMap(token => {
         if (token) {
