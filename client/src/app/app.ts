@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { ApiBaseUrl } from './app.config';
 import { Simplegrid } from "./simplegrid/simplegrid";
+import { DocsTable } from "./docs-table/docs-table";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Simplegrid],
+  imports: [RouterOutlet, Simplegrid, DocsTable],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
