@@ -27,3 +27,5 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 };
+
+export const ApiBaseUrl = 'http://localhost:5000/api';

@@ -3,6 +3,7 @@ import { Component, output, OutputEmitterRef, Signal, signal } from '@angular/co
 import { RouterOutlet } from '@angular/router';
 import { ButtonDemo } from './buttondemo/buttondemo';
 import { Title } from '@angular/platform-browser';
+import { ApiBaseUrl } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class App {
   }
 
   getData() {
-    this.httpClient.get('http://localhost:5000/api/Documents/c918a962-b7ea-4d86-8873-88bcb7ad66b5').subscribe(response => {
+    this.httpClient.get(`${ApiBaseUrl}/Documents/c918a962-b7ea-4d86-8873-88bcb7ad66b5`).subscribe(response => {
       console.log(response);
     });
   }

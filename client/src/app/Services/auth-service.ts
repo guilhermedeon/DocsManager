@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs';
+import { ApiBaseUrl } from '../app.config';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
   fetchToken(): Promise<string | null> {
     return new Promise((resolve, reject) => {
       this.http
-        .get<{ token: string }>('http://localhost:5000/api/Auth/token')
+        .get<{ token: string }>(`${ApiBaseUrl}/Auth/token`)
         .pipe(take(1))
         .subscribe(
           (response) => {
@@ -35,12 +36,6 @@ export class AuthService {
 
   clearToken() {
     localStorage.removeItem('token');
-  }
-
-  isAuthenticated(): boolean {
-    const token = this.getToken();
-    // Simple check for token existence; in a real app, you'd verify token validity
-    return !!token;
   }
 
   async getOrFetchToken(): Promise<string | null> {
