@@ -30,8 +30,6 @@ var app = builder.Build();
 
 await ConfigureServices(app);
 
-app.UseCors(); // Enable CORS middleware
-
 await app.RunAsync();
 
 static void SetupSwagger(WebApplicationBuilder builder)
@@ -157,6 +155,8 @@ static async Task ConfigureServices(WebApplication app)
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+    
+    app.UseCors();
 
     app.UseAuthentication();
     app.UseAuthorization();
